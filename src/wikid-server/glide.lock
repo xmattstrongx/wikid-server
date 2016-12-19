@@ -1,6 +1,10 @@
-hash: 9c1f4b165ee7beb3a05ce47e5db4ed332105c4727c0884ef1a3ef947f9dd59a3
-updated: 2016-12-19T04:12:26.138755615-05:00
+hash: 58200b3081beb9e6b56ac2f47a9b0c140e442a52ecfec529edd75402b26946f8
+updated: 2016-12-19T05:46:51.199904808-05:00
 imports:
+- name: github.com/caarlos0/env
+  version: d0de832ed2fbc4e7bfaa30ab5cf0b3417d15f529
 - name: github.com/emicklei/go-restful
   version: 777bb3f19bcafe2575ffb2a3e46af92509ae9594
+  subpackages:
+  - log
 testImports: []

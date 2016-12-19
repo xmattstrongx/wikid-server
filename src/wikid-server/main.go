@@ -15,5 +15,5 @@ func main() {
 	}
 
 	log.Printf("Server configured to listen on port %d.\n", app.Config.Port)
-	log.Fatal(server.ListenAndServe())
+	log.Fatalln(server.ListenAndServe())
 }
