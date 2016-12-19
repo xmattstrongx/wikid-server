@@ -1,6 +1,6 @@
 GOPATH=${PWD}
 
-build: clean lint compile test
+build: clean lint compile test package
 
 clean:
 	rm -rf bin/**
@@ -13,6 +13,9 @@ compile:
 
 test:
 	go test `go list wikid-server/... | grep -v /vendor/`
+
+package:
+	cp -r src/swagger-ui bin
 
 # ---------------------------------------------------------------------------- #
 

@@ -8,13 +8,11 @@ import (
 
 // Init initializes application routes.
 func Init() http.Handler {
-	ws := &restful.WebService{}
-	ws.Route(ws.GET("/").To(func(req *restful.Request, res *restful.Response) {
-		res.Write([]byte("hello world"))
-	}))
-
 	container := restful.NewContainer()
-	container.Add(ws)
+
+	registerAPIRoutes(container)
+
+	registerDocRoutes(container)
 
 	return container
 }
