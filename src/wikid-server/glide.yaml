@@ -1,0 +1,4 @@
+package: .
+import:
+- package: github.com/emicklei/go-restful
+  version: ~1.2.0
