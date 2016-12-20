@@ -9,7 +9,7 @@ func registerDocRoutes(container *restful.Container) {
 	config := swagger.Config{
 		WebServices:     container.RegisteredWebServices(),
 		ApiPath:         "/swagger.json",
-		SwaggerPath:     "/docs",
+		SwaggerPath:     "/docs/",
 		SwaggerFilePath: "swagger-ui",
 	}
 

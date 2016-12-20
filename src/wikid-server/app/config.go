@@ -10,7 +10,8 @@ import (
 var Config config
 
 type config struct {
-	Port int `env:"PORT" envDefault:"5000"`
+	Port      int    `env:"PORT" envDefault:"5000"`
+	DBConnStr string `env:"DB_CONN_STR" envDefault:"root:password@tcp(localhost:3306)/wikid"`
 }
 
 func init() {

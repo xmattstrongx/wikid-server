@@ -1,5 +1,5 @@
-hash: 58200b3081beb9e6b56ac2f47a9b0c140e442a52ecfec529edd75402b26946f8
-updated: 2016-12-19T05:46:51.199904808-05:00
+hash: 8ab843dcd86ef921db5eec8632bf4d3b00729aa585cc2bc2353a7b8ef99f59ab
+updated: 2016-12-19T19:57:47.367593051-05:00
 imports:
 - name: github.com/caarlos0/env
   version: d0de832ed2fbc4e7bfaa30ab5cf0b3417d15f529
@@ -7,4 +7,11 @@ imports:
   version: 777bb3f19bcafe2575ffb2a3e46af92509ae9594
   subpackages:
   - log
+  - swagger
+- name: github.com/go-sql-driver/mysql
+  version: a0583e0143b1624142adab07e0e97fe106d99561
+- name: github.com/jmoiron/sqlx
+  version: cac998c4f0959c19c638c523e374fa8e4e0bcfe3
+  subpackages:
+  - reflectx
 testImports: []
