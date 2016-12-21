@@ -7,6 +7,7 @@ import (
 )
 
 func registerAuthenticationRoutes(container *restful.Container) {
+	authenticationController := controllers.NewAuthenticationController()
 	service := &restful.WebService{}
 	container.Add(service)
 
@@ -15,6 +16,6 @@ func registerAuthenticationRoutes(container *restful.Container) {
 		Consumes(restful.MIME_JSON).
 		Produces(restful.MIME_JSON)
 
-	service.Route(service.POST("/password").To(controllers.AuthenticationController.PostPassword))
-	service.Route(service.POST("/session").To(controllers.AuthenticationController.PostSession))
+	service.Route(service.POST("/password").To(authenticationController.PostPassword))
+	service.Route(service.POST("/session").To(authenticationController.PostSession))
 }

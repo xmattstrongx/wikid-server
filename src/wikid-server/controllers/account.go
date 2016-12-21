@@ -20,8 +20,8 @@ type accountController struct {
 
 func NewAccountController() IAccountController {
 	return &accountController{
-		accountService: services.AccountService,
-		sessionService: services.SessionService,
+		accountService: services.NewAccountService(),
+		sessionService: services.NewSessionService(),
 	}
 }
 

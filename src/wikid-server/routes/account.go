@@ -7,6 +7,7 @@ import (
 )
 
 func registerAccountRoutes(container *restful.Container) {
+	accountController := controllers.NewAccountController()
 	service := &restful.WebService{}
 	container.Add(service)
 
@@ -15,5 +16,5 @@ func registerAccountRoutes(container *restful.Container) {
 		Consumes(restful.MIME_JSON).
 		Produces(restful.MIME_JSON)
 
-	service.Route(service.POST("/").To(controllers.AccountController.PostAccount))
+	service.Route(service.POST("/").To(accountController.PostAccount))
 }

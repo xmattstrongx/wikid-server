@@ -8,9 +8,3 @@ var _db *sqlx.DB
 func Init(db *sqlx.DB) {
 	_db = db
 }
-
-// -------------------------------------------------------------------------- //
-
-// Repositories
-var AccountRepository = NewAccountRepository()
-var SessionRepository = NewSessionRepository()

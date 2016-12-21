@@ -21,7 +21,7 @@ type accountService struct {
 
 func NewAccountService() IAccountService {
 	return &accountService{
-		accountRepository: repositories.AccountRepository,
+		accountRepository: repositories.NewAccountRepository(),
 	}
 }
 
