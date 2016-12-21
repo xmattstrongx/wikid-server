@@ -6,13 +6,15 @@ import (
 	restful "github.com/emicklei/go-restful"
 )
 
-// Init initializes application routes.
+// Init initializes the server routes.
 func Init() http.Handler {
 	container := restful.NewContainer()
 
-	registerAPIRoutes(container)
+	registerAccountRoutes(container)
+	registerAuthenticationRoutes(container)
 
-	registerDocRoutes(container)
+	// The Swagger routes must be registered last.
+	registerSwaggerRoutes(container)
 
 	return container
 }

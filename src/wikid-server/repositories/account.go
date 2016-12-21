@@ -1,11 +1,30 @@
 package repositories
 
-// AccountRepository is a repository for accounts.
-type AccountRepository interface{}
+import "wikid-server/models"
+
+type IAccountRepository interface {
+	CreateAccount(account *models.Account) error
+}
 
 type accountRepository struct{}
 
-// NewAccountRepository constructs a new account repository.
-var NewAccountRepository = func() AccountRepository {
+// -------------------------------------------------------------------------- //
+
+func NewAccountRepository() IAccountRepository {
 	return &accountRepository{}
+}
+
+func (this *accountRepository) CreateAccount(account *models.Account) error {
+	result, err := _db.NamedExec(`
+		INSERT INTO account ( email,  password,  salt,  created_time)
+		values              (:email, :password, :salt, :created_time);`,
+		account)
+
+	if err != nil {
+		return err
+	}
+
+	account.Id, err = result.LastInsertId()
+
+	return err
 }

@@ -5,11 +5,11 @@ import (
 	"github.com/emicklei/go-restful/swagger"
 )
 
-func registerDocRoutes(container *restful.Container) {
+func registerSwaggerRoutes(container *restful.Container) {
 	config := swagger.Config{
 		WebServices:     container.RegisteredWebServices(),
 		ApiPath:         "/swagger.json",
-		SwaggerPath:     "/docs/",
+		SwaggerPath:     "/swagger/",
 		SwaggerFilePath: "swagger-ui",
 	}
 
