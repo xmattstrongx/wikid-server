@@ -6,6 +6,8 @@ import (
 	"wikid-server/models"
 	"wikid-server/repositories"
 
+	uuid "github.com/satori/go.uuid"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -17,18 +19,16 @@ type accountService struct {
 	accountRepository repositories.IAccountRepository
 }
 
-// -------------------------------------------------------------------------- //
-
-func NewAccountService() IAccountService {
+var NewAccountService = func() IAccountService {
 	return &accountService{
 		accountRepository: repositories.NewAccountRepository(),
 	}
 }
 
+// -------------------------------------------------------------------------- //
+
 func (this *accountService) CreateAccount(email, password string) (*models.Account, error) {
 	// TODO: Validate account values.
-	// Check that email is valid.
-	// Check that password is strong.
 
 	// Generate salt and hash password.
 	salt, err := generateSalt()
@@ -43,6 +43,7 @@ func (this *accountService) CreateAccount(email, password string) (*models.Accou
 
 	// Create account.
 	account := &models.Account{
+		Id:          uuid.NewV4().String(),
 		Email:       email,
 		Password:    hashedPassword,
 		Salt:        salt,

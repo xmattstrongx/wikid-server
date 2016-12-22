@@ -1,5 +1,5 @@
-hash: 6f7ff814f877129e98dcdbdaddd1f1f3cee6dd46f65c19e39ad048e0e6dede6d
-updated: 2016-12-20T22:58:48.856303179-05:00
+hash: 805dc688347b3993c4fa48fc7e8bfa4ec6e551109b7274bd9333035d99217eb5
+updated: 2016-12-22T12:43:57.463380121-05:00
 imports:
 - name: github.com/caarlos0/env
   version: d0de832ed2fbc4e7bfaa30ab5cf0b3417d15f529
@@ -14,6 +14,11 @@ imports:
   version: cac998c4f0959c19c638c523e374fa8e4e0bcfe3
   subpackages:
   - reflectx
+- name: github.com/satori/go.uuid
+  version: 879c5887cd475cd7864858769793b2ceb0d44feb
 - name: golang.org/x/crypto
-  version: d8e61c69ab46ca38328da2f4995abaf93b252290
+  version: f6b343c37ca80bfa8ea539da67a0b621f84fab1d
+  subpackages:
+  - bcrypt
+  - blowfish
 testImports: []

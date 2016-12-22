@@ -8,23 +8,17 @@ type IAccountRepository interface {
 
 type accountRepository struct{}
 
-// -------------------------------------------------------------------------- //
-
-func NewAccountRepository() IAccountRepository {
+var NewAccountRepository = func() IAccountRepository {
 	return &accountRepository{}
 }
 
+// -------------------------------------------------------------------------- //
+
 func (this *accountRepository) CreateAccount(account *models.Account) error {
-	result, err := _db.NamedExec(`
-		INSERT INTO account ( email,  password,  salt,  created_time)
-		values              (:email, :password, :salt, :created_time);`,
+	_, err := _db.NamedExec(`
+		INSERT INTO account ( id,  email,  password,  salt,  created_time)
+		values              (:id, :email, :password, :salt, :created_time);`,
 		account)
-
-	if err != nil {
-		return err
-	}
-
-	account.Id, err = result.LastInsertId()
 
 	return err
 }
