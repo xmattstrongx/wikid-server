@@ -15,6 +15,6 @@ func RegisterRoutes(container *restful.Container) {
 
 	service.Route(service.POST("/").
 		To(controller.PostRoot).
-		Reads(&PostRootRequestModel{}).
-		Writes(&PostRootResponseModel{}))
+		Reads(PostRootRequestModel{}).
+		Writes(PostRootResponseModel{}))
 }
