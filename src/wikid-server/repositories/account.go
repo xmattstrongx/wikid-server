@@ -1,9 +1,9 @@
 package repositories
 
-import "wikid-server/models"
+import "wikid-server/models/data"
 
 type IAccountRepository interface {
-	CreateAccount(account *models.Account) error
+	CreateAccount(account *data.Account) error
 }
 
 type accountRepository struct{}
@@ -14,7 +14,7 @@ var NewAccountRepository = func() IAccountRepository {
 
 // -------------------------------------------------------------------------- //
 
-func (this *accountRepository) CreateAccount(account *models.Account) error {
+func (this *accountRepository) CreateAccount(account *data.Account) error {
 	_, err := _db.NamedExec(`
 		INSERT INTO account ( id,  email,  password,  salt,  created_time)
 		values              (:id, :email, :password, :salt, :created_time);`,

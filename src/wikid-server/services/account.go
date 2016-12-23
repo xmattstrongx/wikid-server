@@ -3,7 +3,7 @@ package services
 import (
 	"crypto/rand"
 	"time"
-	"wikid-server/models"
+	"wikid-server/models/data"
 	"wikid-server/repositories"
 
 	uuid "github.com/satori/go.uuid"
@@ -12,7 +12,7 @@ import (
 )
 
 type IAccountService interface {
-	CreateAccount(email, password string) (*models.Account, error)
+	CreateAccount(email, password string) (*data.Account, error)
 }
 
 type accountService struct {
@@ -27,7 +27,7 @@ var NewAccountService = func() IAccountService {
 
 // -------------------------------------------------------------------------- //
 
-func (this *accountService) CreateAccount(email, password string) (*models.Account, error) {
+func (this *accountService) CreateAccount(email, password string) (*data.Account, error) {
 	// TODO: Validate account values.
 
 	// Generate salt and hash password.
@@ -42,7 +42,7 @@ func (this *accountService) CreateAccount(email, password string) (*models.Accou
 	}
 
 	// Create account.
-	account := &models.Account{
+	account := &data.Account{
 		Id:          uuid.NewV4().String(),
 		Email:       email,
 		Password:    hashedPassword,

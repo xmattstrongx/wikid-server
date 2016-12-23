@@ -1,31 +1,32 @@
-package account
+package controllers
 
 import (
 	"net/http"
+	"wikid-server/models/view"
 	"wikid-server/services"
 
 	restful "github.com/emicklei/go-restful"
 )
 
-type IController interface {
+type IAccountController interface {
 	PostRoot(req *restful.Request, res *restful.Response)
 }
 
-type controller struct {
+type accountController struct {
 	accountService services.IAccountService
 }
 
-var NewController = func() IController {
-	return &controller{
+var NewAccountController = func() IAccountController {
+	return &accountController{
 		accountService: services.NewAccountService(),
 	}
 }
 
 // -------------------------------------------------------------------------- //
 
-func (this *controller) PostRoot(req *restful.Request, res *restful.Response) {
+func (this *accountController) PostRoot(req *restful.Request, res *restful.Response) {
 	// Parse request body.
-	reqBody := &PostRootRequestModel{}
+	reqBody := &view.AccountPostRootRequest{}
 	if err := req.ReadEntity(reqBody); err != nil {
 		res.WriteError(http.StatusBadRequest, err)
 	}
@@ -37,17 +38,11 @@ func (this *controller) PostRoot(req *restful.Request, res *restful.Response) {
 		return
 	}
 
-	// // Create session.
-	// session, err := this.accountService.SignIn(body.Email, body.Password)
-	// if err != nil {
-	// 	res.WriteError(http.StatusBadRequest, err)
-	// 	return
-	// }
-
-	// Return session.
-	resBody := &PostRootResponseModel{
-		SessionId: "session id",
-		AccountId: account.Id,
+	// Return account.
+	resBody := &view.AccountPostRootResponse{
+		Id:          account.Id,
+		Email:       account.Email,
+		CreatedTime: account.CreatedTime,
 	}
 
 	res.WriteHeaderAndEntity(http.StatusCreated, resBody)
