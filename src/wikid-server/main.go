@@ -5,29 +5,15 @@ import (
 	"log"
 	"net/http"
 	"wikid-server/app"
-	"wikid-server/repositories"
 	"wikid-server/routes"
 
 	restful "github.com/emicklei/go-restful"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/jmoiron/sqlx"
 )
 
 func main() {
-	// Get configuration values.
-	config, err := app.GetConfig()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// Connect to database.
-	db, err := sqlx.Open("mysql", config.DbConnStr)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	// Initialize repositories.
-	repositories.Init(db)
+	// Get config values.
+	config := app.GetConfig()
 
 	// Register routes.
 	container := restful.NewContainer()

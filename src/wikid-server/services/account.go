@@ -19,13 +19,13 @@ type accountService struct {
 	accountRepository repositories.IAccountRepository
 }
 
-var NewAccountService = func() IAccountService {
+// -------------------------------------------------------------------------- //
+
+func NewAccountService() IAccountService {
 	return &accountService{
 		accountRepository: repositories.NewAccountRepository(),
 	}
 }
-
-// -------------------------------------------------------------------------- //
 
 func (this *accountService) CreateAccount(email, password string) (*data.Account, error) {
 	// TODO: Validate account values.
@@ -43,7 +43,7 @@ func (this *accountService) CreateAccount(email, password string) (*data.Account
 
 	// Create account.
 	account := &data.Account{
-		Id:          uuid.NewV4().String(),
+		ID:          uuid.NewV4().String(),
 		Email:       email,
 		Password:    hashedPassword,
 		Salt:        salt,

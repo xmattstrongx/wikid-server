@@ -3,7 +3,7 @@ package data
 import "time"
 
 type Account struct {
-	Id          string    `db:"id"`
+	ID          string    `db:"id"`
 	Email       string    `db:"email"`
 	Password    []byte    `db:"password"`
 	Salt        []byte    `db:"salt"`

@@ -8,7 +8,7 @@ type AccountPostRootRequest struct {
 }
 
 type AccountPostRootResponse struct {
-	Id          string    `json:"id"`
+	ID          string    `json:"id"`
 	Email       string    `json:"email"`
 	CreatedTime time.Time `json:"createdTime"`
 }

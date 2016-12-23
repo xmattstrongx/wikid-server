@@ -16,13 +16,13 @@ type accountController struct {
 	accountService services.IAccountService
 }
 
-var NewAccountController = func() IAccountController {
+// -------------------------------------------------------------------------- //
+
+func NewAccountController() IAccountController {
 	return &accountController{
 		accountService: services.NewAccountService(),
 	}
 }
-
-// -------------------------------------------------------------------------- //
 
 func (this *accountController) PostRoot(req *restful.Request, res *restful.Response) {
 	// Parse request body.
@@ -40,7 +40,7 @@ func (this *accountController) PostRoot(req *restful.Request, res *restful.Respo
 
 	// Return account.
 	resBody := &view.AccountPostRootResponse{
-		Id:          account.Id,
+		ID:          account.ID,
 		Email:       account.Email,
 		CreatedTime: account.CreatedTime,
 	}
