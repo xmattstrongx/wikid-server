@@ -2,6 +2,8 @@ package services
 
 import (
 	"crypto/rand"
+	"errors"
+	"net/mail"
 	"time"
 	"wikid-server/models/data"
 	"wikid-server/repositories"
@@ -28,7 +30,14 @@ func NewAccountService() IAccountService {
 }
 
 func (this *accountService) CreateAccount(email, password string) (*data.Account, error) {
-	// TODO: Validate account values.
+	// Validate email and password.
+	if err := validateEmail(email); err != nil {
+		return nil, err
+	}
+
+	if err := validatePassword(password); err != nil {
+		return nil, err
+	}
 
 	// Generate salt and hash password.
 	salt, err := generateSalt()
@@ -58,6 +67,23 @@ func (this *accountService) CreateAccount(email, password string) (*data.Account
 }
 
 // -------------------------------------------------------------------------- //
+
+func validateEmail(email string) error {
+	address, err := mail.ParseAddress(email)
+	if err != nil || address.Name != "" {
+		return errors.New("Invalid email address.")
+	}
+
+	return nil
+}
+
+func validatePassword(password string) error {
+	if len(password) < 8 {
+		return errors.New("Password must be at last 8 characters in length.")
+	}
+
+	return nil
+}
 
 func generateSalt() ([]byte, error) {
 	salt := make([]byte, 64)

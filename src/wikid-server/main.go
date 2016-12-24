@@ -12,20 +12,17 @@ import (
 )
 
 func main() {
-	// Get config values.
-	config := app.GetConfig()
-
 	// Register routes.
 	container := restful.NewContainer()
 	routes.Register(container)
 
 	// Configure server.
 	server := &http.Server{
-		Addr:    fmt.Sprintf(":%d", config.Port),
+		Addr:    fmt.Sprintf(":%d", app.GetConfig().Port),
 		Handler: container,
 	}
 
 	// Start listening.
-	log.Printf("Server configured to listen on port %d.\n", config.Port)
+	log.Printf("Server configured to listen on port %d.\n", app.GetConfig().Port)
 	log.Fatalln(server.ListenAndServe())
 }
