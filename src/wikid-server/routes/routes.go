@@ -8,6 +8,7 @@ import (
 // Register registers the routes with the provided container.
 func Register(container *restful.Container) {
 	registerAccountRoutes(container)
+	registerHealthRoutes(container)
 
 	// Swagger docs must be registered last.
 	registerSwaggerDocs(container)

@@ -17,8 +17,8 @@ var configOnce sync.Once
 // GetConfig panics if it fails to get the configuration values.
 func GetConfig() *Config {
 	configOnce.Do(func() {
-		config := &Config{}
-		if err := env.Parse(&config); err != nil {
+		config = &Config{}
+		if err := env.Parse(config); err != nil {
 			panic(err)
 		}
 	})
