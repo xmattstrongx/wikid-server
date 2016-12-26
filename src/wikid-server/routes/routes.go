@@ -1,20 +1,23 @@
 package routes
 
 import (
+	"net/http"
+	"wikid-server/routes/accounts"
+	"wikid-server/routes/health"
+
 	restful "github.com/emicklei/go-restful"
 	"github.com/emicklei/go-restful/swagger"
 )
 
-// Register registers the routes with the provided container.
-func Register(container *restful.Container) {
-	registerAccountRoutes(container)
-	registerHealthRoutes(container)
+// Build builds the server routes.
+func Build() http.Handler {
+	container := restful.NewContainer()
 
-	// Swagger docs must be registered last.
-	registerSwaggerDocs(container)
-}
+	// Register routes.
+	accounts.NewController().RegisterRoutes(container)
+	health.NewController().RegisterRoutes(container)
 
-func registerSwaggerDocs(container *restful.Container) {
+	// Build Swagger docs.
 	config := swagger.Config{
 		WebServices:     container.RegisteredWebServices(),
 		ApiPath:         "/swagger.json",
@@ -23,4 +26,6 @@ func registerSwaggerDocs(container *restful.Container) {
 	}
 
 	swagger.RegisterSwaggerService(config, container)
+
+	return container
 }

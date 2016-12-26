@@ -4,25 +4,38 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"wikid-server/app"
+	"wikid-server/repositories"
 	"wikid-server/routes"
 
-	restful "github.com/emicklei/go-restful"
+	"github.com/caarlos0/env"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
 )
 
-func main() {
-	// Register routes.
-	container := restful.NewContainer()
-	routes.Register(container)
+type Config struct {
+	Port      int    `env:"PORT"        envDefault:"5000"`
+	DBConnStr string `env:"DB_CONN_STR" envDefault:"root:password@tcp(localhost:3306)/wikid"`
+}
 
-	// Configure server.
-	server := &http.Server{
-		Addr:    fmt.Sprintf(":%d", app.GetConfig().Port),
-		Handler: container,
+func main() {
+	config := &Config{}
+	if err := env.Parse(config); err != nil {
+		log.Fatalln(err)
 	}
 
-	// Start listening.
-	log.Printf("Server configured to listen on port %d.\n", app.GetConfig().Port)
+	db, err := sqlx.Open("mysql", config.DBConnStr)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	repositories.Init(db)
+	routes := routes.Build()
+
+	server := &http.Server{
+		Addr:    fmt.Sprintf(":%d", config.Port),
+		Handler: routes,
+	}
+
+	log.Printf("Server configured to listen on port %d.\n", config.Port)
 	log.Fatalln(server.ListenAndServe())
 }

@@ -5,7 +5,6 @@ import (
 	"errors"
 	"net/mail"
 	"time"
-	"wikid-server/models/data"
 	"wikid-server/repositories"
 
 	uuid "github.com/satori/go.uuid"
@@ -13,15 +12,13 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type IAccountService interface {
-	CreateAccount(email, password string) (*data.Account, error)
-}
-
 type accountService struct {
 	accountRepository repositories.IAccountRepository
 }
 
-// -------------------------------------------------------------------------- //
+type IAccountService interface {
+	CreateAccount(email, password string) (*repositories.AccountEntity, error)
+}
 
 func NewAccountService() IAccountService {
 	return &accountService{
@@ -29,8 +26,9 @@ func NewAccountService() IAccountService {
 	}
 }
 
-func (this *accountService) CreateAccount(email, password string) (*data.Account, error) {
-	// Validate email and password.
+// -------------------------------------------------------------------------- //
+
+func (this *accountService) CreateAccount(email, password string) (*repositories.AccountEntity, error) {
 	if err := validateEmail(email); err != nil {
 		return nil, err
 	}
@@ -39,7 +37,6 @@ func (this *accountService) CreateAccount(email, password string) (*data.Account
 		return nil, err
 	}
 
-	// Generate salt and hash password.
 	salt, err := generateSalt()
 	if err != nil {
 		return nil, err
@@ -50,8 +47,7 @@ func (this *accountService) CreateAccount(email, password string) (*data.Account
 		return nil, err
 	}
 
-	// Create account.
-	account := &data.Account{
+	account := &repositories.AccountEntity{
 		ID:          uuid.NewV4().String(),
 		Email:       email,
 		Password:    hashedPassword,
