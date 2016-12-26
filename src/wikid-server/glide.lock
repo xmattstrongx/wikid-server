@@ -1,5 +1,5 @@
-hash: 805dc688347b3993c4fa48fc7e8bfa4ec6e551109b7274bd9333035d99217eb5
-updated: 2016-12-22T12:43:57.463380121-05:00
+hash: b8db7b904ff7000a2320c481edaf3e232bbc6cf6e5f058cef1a198a26a51b3d0
+updated: 2016-12-26T03:03:35.600233451-05:00
 imports:
 - name: github.com/caarlos0/env
   version: d0de832ed2fbc4e7bfaa30ab5cf0b3417d15f529
@@ -21,4 +21,8 @@ imports:
   subpackages:
   - bcrypt
   - blowfish
-testImports: []
+testImports:
+- name: github.com/onsi/ginkgo
+  version: 462326b1628e124b23f42e87a8f2750e3c4e2d24
+- name: github.com/onsi/gomega
+  version: a78ae492d53aad5a7a232d0d0462c14c400e3ee7
