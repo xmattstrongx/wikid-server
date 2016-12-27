@@ -1,21 +1,23 @@
 package health
 
-import restful "github.com/emicklei/go-restful"
+import (
+	"net/http"
+
+	restful "github.com/emicklei/go-restful"
+)
 
 type GetIndexResponseBody struct {
-	Database string `json:"database"`
+	DatabaseHealthy bool `json:"databaseHealthy"`
 }
 
 func (this *controller) GetIndex(request *restful.Request, response *restful.Response) {
-	const healthy = "healthy"
-	const unhealthy = "unhealthy"
-
-	responseBody := &GetIndexResponseBody{
-		Database: healthy,
+	report, err := this.healthService.GenerateReport()
+	if err != nil {
+		response.WriteError(http.StatusInternalServerError, err)
 	}
 
-	if err := this.healthService.CheckDatabase(); err != nil {
-		responseBody.Database = unhealthy
+	responseBody := &GetIndexResponseBody{
+		DatabaseHealthy: report.DatabaseHealthy,
 	}
 
 	response.WriteEntity(responseBody)

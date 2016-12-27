@@ -17,7 +17,7 @@ type accountService struct {
 }
 
 type IAccountService interface {
-	CreateAccount(email, password string) (*repositories.AccountEntity, error)
+	CreateAccount(email, password string) (*Account, error)
 }
 
 func NewAccountService() IAccountService {
@@ -28,7 +28,11 @@ func NewAccountService() IAccountService {
 
 // -------------------------------------------------------------------------- //
 
-func (this *accountService) CreateAccount(email, password string) (*repositories.AccountEntity, error) {
+type Account struct {
+	repositories.AccountEntity
+}
+
+func (this *accountService) CreateAccount(email, password string) (*Account, error) {
 	if err := validateEmail(email); err != nil {
 		return nil, err
 	}
@@ -59,7 +63,7 @@ func (this *accountService) CreateAccount(email, password string) (*repositories
 		return nil, err
 	}
 
-	return account, nil
+	return &Account{AccountEntity: *account}, nil
 }
 
 // -------------------------------------------------------------------------- //

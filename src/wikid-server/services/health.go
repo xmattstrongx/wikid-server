@@ -5,7 +5,7 @@ import "wikid-server/repositories"
 type healthService struct{}
 
 type IHealthService interface {
-	CheckDatabase() error
+	GenerateReport() (*HealthReport, error)
 }
 
 func NewHealthService() IHealthService {
@@ -14,6 +14,20 @@ func NewHealthService() IHealthService {
 
 // -------------------------------------------------------------------------- //
 
-func (this *healthService) CheckDatabase() error {
-	return repositories.PingDatabase()
+type HealthReport struct {
+	DatabaseHealthy bool
+}
+
+// GenerateReport generates a health report of the server's external
+// dependencies.
+func (this *healthService) GenerateReport() (*HealthReport, error) {
+	healthReport := &HealthReport{
+		DatabaseHealthy: true,
+	}
+
+	if err := repositories.PingDatabase(); err != nil {
+		healthReport.DatabaseHealthy = false
+	}
+
+	return healthReport, nil
 }
